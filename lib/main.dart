@@ -19,6 +19,7 @@ class RickAndMortyApp extends StatelessWidget {
       title: 'Rick & Morty',
       debugShowCheckedModeBanner: false,
       onGenerateRoute: appRouter.generateRoute,
+      theme: ThemeData(brightness: Brightness.dark),
     );
   }
 }
