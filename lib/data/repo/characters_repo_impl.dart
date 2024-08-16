@@ -1,5 +1,5 @@
-import 'package:rick_and_morty_app/data/models/charecters.dart';
-import 'package:rick_and_morty_app/data/services/character_services.dart';
+import '../models/charecters.dart';
+import '../services/character_services.dart';
 
 class CharactersRepo  {
   CharactersRepo(this.characterServices);

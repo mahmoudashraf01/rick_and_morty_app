@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty_app/core/constants/colors.dart';
+import '../../core/constants/colors.dart';
 
 class CustomFilter extends StatelessWidget {
   const CustomFilter({

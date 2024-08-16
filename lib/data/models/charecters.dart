@@ -13,6 +13,7 @@ class AppCharacters {
     charId = json['id'];
     name = json['name'];
     gender = json['gender'];
+    species = json['species'];
     status = json['status'];
     image = json['image'];
     origin = Origin.fromJson(json['origin']); // Create an Origin instance

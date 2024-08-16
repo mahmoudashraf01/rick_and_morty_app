@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty_app/core/constants/colors.dart';
-import 'package:rick_and_morty_app/presentaion/widgets/custom_filter.dart';
+import '../../core/constants/colors.dart';
+import 'custom_filter.dart';
 
 class AppViewColor extends StatelessWidget {
   const AppViewColor({super.key});

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rick_and_morty_app/buisness_logic/cubit/characters_cubit.dart';
-import 'package:rick_and_morty_app/core/constants/colors.dart';
-import 'package:rick_and_morty_app/core/constants/text.dart';
-import 'package:rick_and_morty_app/data/models/charecters.dart';
-import 'package:rick_and_morty_app/presentaion/widgets/app_view_colors.dart';
-import 'package:rick_and_morty_app/presentaion/widgets/characters_item.dart';
+import 'package:flutter_offline/flutter_offline.dart';
+import '../../buisness_logic/cubit/characters_cubit.dart';
+import '../../core/constants/colors.dart';
+import '../../core/constants/text.dart';
+import '../../data/models/charecters.dart';
+import '../widgets/app_view_colors.dart';
+import '../widgets/characters_item.dart';
 
 class CharactersScreen extends StatefulWidget {
   const CharactersScreen({super.key});
@@ -111,10 +112,13 @@ class CharactersScreenState extends State<CharactersScreen> {
   }
 
   Widget showLoadingIndicator() {
-    return const Center(
-      child: CircularProgressIndicator(
-        color: AppColors.yellow,
-      ),
+    return Stack(
+      children: [
+        const AppViewColor(),
+        Center(
+          child: Image.asset('assets/images/Animation.gif'),
+        ),
+      ],
     );
   }
 
@@ -191,50 +195,26 @@ class CharactersScreenState extends State<CharactersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.orange,
+        automaticallyImplyLeading: false,
         elevation: 0,
-        leading: _isSearching
-            ? const BackButton(
-                color: AppColors.grey,
-              )
-            : Container(),
         title: _isSearching ? _buildSearchField() : _buildAppBarTitle(),
         actions: _buildAppBarActions(),
       ),
-      body: buildBlocWidget(),
+      body: OfflineBuilder(
+        connectivityBuilder: (BuildContext context,
+            List<ConnectivityResult> connectivity, Widget child) {
+          final bool connected = connectivity.isNotEmpty &&
+              connectivity[0] != ConnectivityResult.none;
+          if (connected) {
+            return buildBlocWidget();
+          } else {
+            return buildNoInternetWidget();
+          }
+        },
+        child: Center(
+          child: Image.asset('assets/images/Animation.gif'),
+        ),
+      ),
     );
   }
 }
-
-//Widget buildListWidgets() {
-  //   return SingleChildScrollView(
-  //     child: Container(
-  //       color: AppColors.grey,
-  //       child: Column(
-  //         children: [
-  //           buildCharacterList(),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // Widget buildCharacterList() {
-  //   return GridView.builder(
-  //     itemCount: allCharacters.length,
-  //     shrinkWrap: true,
-  //     physics: const ClampingScrollPhysics(),
-  //     padding: EdgeInsets.zero,
-  //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-  //       crossAxisCount: 2,
-  //       childAspectRatio: 2 / 3,
-  //       crossAxisSpacing: 1,
-  //       mainAxisExtent: 1,
-  //     ),
-  //     itemBuilder: (context, index) {
-  //       return CharacterItem(
-  //         character: allCharacters[index],
-  //       );
-  //     },
-  //   );
-  // }

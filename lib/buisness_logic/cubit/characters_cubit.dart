@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty_app/data/models/charecters.dart';
-import 'package:rick_and_morty_app/data/repo/characters_repo_impl.dart';
+import '../../data/models/charecters.dart';
+import '../../data/repo/characters_repo_impl.dart';
 part 'characters_state.dart';
 
 class CharactersCubit extends Cubit<CharactersState> {
