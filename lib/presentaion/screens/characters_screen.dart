@@ -193,26 +193,27 @@ class CharactersScreenState extends State<CharactersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        title: _isSearching ? _buildSearchField() : _buildAppBarTitle(),
-        actions: _buildAppBarActions(),
-      ),
-      body: OfflineBuilder(
-        connectivityBuilder: (BuildContext context,
-            List<ConnectivityResult> connectivity, Widget child) {
-          final bool connected = connectivity.isNotEmpty &&
-              connectivity[0] != ConnectivityResult.none;
-          if (connected) {
-            return buildBlocWidget();
-          } else {
-            return buildNoInternetWidget();
-          }
-        },
-        child: Center(
-          child: Image.asset('assets/images/Animation.gif'),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: _isSearching ? _buildSearchField() : _buildAppBarTitle(),
+          actions: _buildAppBarActions(),
+        ),
+        body: OfflineBuilder(
+          connectivityBuilder: (BuildContext context,
+              List<ConnectivityResult> connectivity, Widget child) {
+            final bool connected = connectivity.isNotEmpty &&
+                connectivity[0] != ConnectivityResult.none;
+            if (connected) {
+              return buildBlocWidget();
+            } else {
+              return buildNoInternetWidget();
+            }
+          },
+          child: Center(
+            child: Image.asset('assets/images/Animation.gif'),
+          ),
         ),
       ),
     );
